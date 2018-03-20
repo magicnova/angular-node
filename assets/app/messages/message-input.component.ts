@@ -1,17 +1,18 @@
+import { MessageService } from './message.service';
 import { Message } from './message.model';
 import { Component } from '@angular/core';
-import { MessageService } from './message.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
 	selector: 'app-message-input',
-	templateUrl: './message-input-component.html',
-	providers: [MessageService]
+	templateUrl: './message-input-component.html'
 })
 export class MessageInputComponent {
 	constructor(private messageService: MessageService) {}
 
-	onSave(contentValue: string) {
-		const message = new Message(contentValue, 'asd');
+	onSubmit(form: NgForm) {
+		const message = new Message(form.value.content, 'asd');
 		this.messageService.addMessage(message);
+		form.resetForm();
 	}
 }

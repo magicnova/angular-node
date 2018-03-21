@@ -1,3 +1,6 @@
+import { SignInComponent } from './auth/signin.component';
+import { SignUpComponent } from './auth/signup.component';
+import { LogOutComponent } from './auth/logout.component';
 import { routing } from './app.routing';
 import { AuthenticationComponent } from './auth/authentication.component';
 import { NgModule } from '@angular/core';
@@ -19,7 +22,10 @@ import { HeaderComponent } from './shared/header.component';
 		MessageInputComponent,
 		MessagesComponent,
 		AuthenticationComponent,
-		HeaderComponent
+		HeaderComponent,
+		LogOutComponent,
+		SignUpComponent,
+		SignInComponent
 	],
 	imports: [BrowserModule, FormsModule, routing],
 	bootstrap: [AppComponent]

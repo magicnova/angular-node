@@ -2,8 +2,10 @@
   <form (ngSubmit)="onSubmit(form)" #form="ngForm" ngNativeValidate>
     <div class="form-group">
       <label for="content">Content</label>
-      <input required type="text" class="form-control" id="content" name="content" ngModel>
+      <input required type="text" class="form-control" id="content" name="content" [ngModel]="message?.content">
     </div>
+    <button class="btn btn-danger" (onClick)="onClear(form)">Clear</button>
+
     <button class="btn btn-primary" type="submit">Save</button>
   </form>
 </div>

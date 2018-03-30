@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var appRoutes = require('./routes/app');
-var messagesRoutes = require('./routes/messages');
-
+const messagesRoutes = require('./routes/messages');
+const userRoutes = require('./routes/user');
 var app = express();
 var mongoose = require('mongoose');
 
@@ -37,6 +37,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.user('user', userRoutes);
 app.use('/message', messagesRoutes);
 app.use('/', appRoutes);
 

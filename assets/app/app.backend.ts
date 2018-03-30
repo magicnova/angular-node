@@ -10,3 +10,4 @@ export const UPDATE_MESSAGE_URL = `${BACKEND_URL}/message/`;
 export const DELETE_MESSAGE_URL = `${BACKEND_URL}/message/`;
 
 export const SIGN_UP_USER = `${BACKEND_URL}/user`;
+export const SIGN_IN_USER = `${BACKEND_URL}/user/signin`;

@@ -1,4 +1,8 @@
-import { SIGN_UP_USER, CONTENT_TYPE_JSON } from './../app.backend';
+import {
+	SIGN_UP_USER,
+	SIGN_IN_USER,
+	CONTENT_TYPE_JSON
+} from './../app.backend';
 import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { User } from './user.model';
@@ -13,6 +17,16 @@ export class AuthService {
 		const body = JSON.stringify(user);
 		return this.httpService
 			.post(SIGN_UP_USER, user, {
+				headers: CONTENT_TYPE_JSON
+			})
+			.map((response: Response) => response.json())
+			.catch((error: Response) => Observable.throw(error.json()));
+	}
+
+	singIn(user: User) {
+		const body = JSON.stringify(user);
+		return this.httpService
+			.post(SIGN_IN_USER, user, {
 				headers: CONTENT_TYPE_JSON
 			})
 			.map((response: Response) => response.json())

@@ -8,3 +8,5 @@ export const ADD_MESSAGE_URL = `${BACKEND_URL}/message`;
 export const GET_MESSAGES_URL = `${BACKEND_URL}/message`;
 export const UPDATE_MESSAGE_URL = `${BACKEND_URL}/message/`;
 export const DELETE_MESSAGE_URL = `${BACKEND_URL}/message/`;
+
+export const SIGN_UP_USER = `${BACKEND_URL}/user`;

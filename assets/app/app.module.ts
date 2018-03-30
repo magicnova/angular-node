@@ -1,3 +1,4 @@
+import { AuthService } from './auth/auth.service';
 import { SignInComponent } from './auth/signin.component';
 import { SignUpComponent } from './auth/signup.component';
 import { LogOutComponent } from './auth/logout.component';
@@ -35,6 +36,7 @@ import { HttpModule } from '@angular/http';
 		ReactiveFormsModule,
 		HttpModule
 	],
+	providers: [AuthService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

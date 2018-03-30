@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.user('user', userRoutes);
+app.use('/user', userRoutes);
 app.use('/message', messagesRoutes);
 app.use('/', appRoutes);
 

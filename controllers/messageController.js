@@ -1,8 +1,21 @@
 const MessageModel = require('../models/message');
+const userRepository = require('../repositories/UserRepository');
+const jwt = require('jsonwebtoken');
 
-exports.CreateMessage = (req, res) => {
-	const message = new MessageModel({
-		content: req.body.content
+exports.CreateMessage = async (req, res) => {
+	const decodedToken = jwt.decode(req.query.token);
+	const user = await userRepository.GetUserById(decodedToken.user._id);
+
+	if (user === null) {
+		return res.json(500).json({
+			title: 'An error ocurred',
+			error: `${decodedToken.user._id} User not found`
+		});
+	}
+
+	message = new MessageModel({
+		content: req.body.content,
+		user: user
 	});
 
 	message.save(function(err, result) {
@@ -12,6 +25,8 @@ exports.CreateMessage = (req, res) => {
 				error: err
 			});
 		}
+
+		userRepository.AddMessage(user, result);
 		res.status(201).json({
 			message: 'Saved',
 			obj: result

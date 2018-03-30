@@ -19,8 +19,11 @@ export class MessageService {
 
 	addMessage(message: Message) {
 		const body = JSON.stringify(message);
+		const token = localStorage.getItem('token')
+			? '?token=' + localStorage.getItem('token')
+			: '';
 		return this.httpService
-			.post(ADD_MESSAGE_URL, body, { headers: CONTENT_TYPE_JSON })
+			.post(ADD_MESSAGE_URL + token, body, { headers: CONTENT_TYPE_JSON })
 			.map((response: Response) => {
 				const result = response.json();
 				const message = new Message(
@@ -36,6 +39,9 @@ export class MessageService {
 	}
 
 	getMessages() {
+		const token = localStorage.getItem('token')
+			? '?token=' + localStorage.getItem('token')
+			: '';
 		return this.httpService
 			.get(GET_MESSAGES_URL)
 			.map((response: Response) => {
@@ -59,8 +65,11 @@ export class MessageService {
 
 	updateMessage(message: Message) {
 		const body = JSON.stringify(message);
+		const token = localStorage.getItem('token')
+			? '?token=' + localStorage.getItem('token')
+			: '';
 		return this.httpService
-			.patch(UPDATE_MESSAGE_URL + message.messageId, body, {
+			.patch(UPDATE_MESSAGE_URL + message.messageId + token, body, {
 				headers: CONTENT_TYPE_JSON
 			})
 			.map((response: Response) => response.json())
@@ -69,9 +78,11 @@ export class MessageService {
 
 	deleteMessage(message: Message) {
 		this.messages.splice(this.messages.indexOf(message), 1);
-
+		const token = localStorage.getItem('token')
+			? '?token=' + localStorage.getItem('token')
+			: '';
 		return this.httpService
-			.delete(DELETE_MESSAGE_URL + message.messageId)
+			.delete(DELETE_MESSAGE_URL + message.messageId + token)
 			.map((response: Response) => response.json())
 			.catch((error: Response) => Observable.throw(error.json()));
 	}

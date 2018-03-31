@@ -26,11 +26,12 @@ export class MessageService {
 			.post(ADD_MESSAGE_URL + token, body, { headers: CONTENT_TYPE_JSON })
 			.map((response: Response) => {
 				const result = response.json();
+				console.log(result);
 				const message = new Message(
 					result.obj.content,
-					'GP',
+					result.obj.user.firstName,
 					result.obj._id,
-					null
+					result.obj.user._id
 				);
 				this.messages.push(message);
 				return message;
@@ -47,10 +48,14 @@ export class MessageService {
 			.map((response: Response) => {
 				const messages = response.json().obj;
 				let transformedMessages: Message[] = [];
-
 				for (let message of messages) {
 					transformedMessages.push(
-						new Message(message.content, 'GP', message._id, null)
+						new Message(
+							message.content,
+							message.user.firstName,
+							message._id,
+							message.user._id
+						)
 					);
 				}
 				this.messages = transformedMessages;

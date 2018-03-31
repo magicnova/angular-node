@@ -8,14 +8,15 @@ const messageSchema = new Schema({
 		required: true
 	},
 	user: {
-		type: Schema.Types.ObjectId
+		type: Schema.Types.ObjectId,
+		ref: 'User'
 	}
 });
 
 messageSchema.post('remove', function(message) {
 	User.findById(message.user, function(err, user) {
 		if (user !== null) {
-			user.messages.pull(message);
+			user.messages.pull(message._id);
 			user.save();
 		}
 	});

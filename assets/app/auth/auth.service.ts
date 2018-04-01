@@ -1,3 +1,4 @@
+import { ErrorService } from './../errors/error.service';
 import {
 	SIGN_UP_USER,
 	SIGN_IN_USER,
@@ -11,7 +12,10 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-	constructor(private httpService: Http) {}
+	constructor(
+		private httpService: Http,
+		private errorService: ErrorService
+	) {}
 
 	singUp(user: User) {
 		const body = JSON.stringify(user);
@@ -20,7 +24,10 @@ export class AuthService {
 				headers: CONTENT_TYPE_JSON
 			})
 			.map((response: Response) => response.json())
-			.catch((error: Response) => Observable.throw(error.json()));
+			.catch((error: Response) => {
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});
 	}
 
 	singIn(user: User) {
@@ -30,7 +37,10 @@ export class AuthService {
 				headers: CONTENT_TYPE_JSON
 			})
 			.map((response: Response) => response.json())
-			.catch((error: Response) => Observable.throw(error.json()));
+			.catch((error: Response) => {
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});
 	}
 
 	logOut() {
